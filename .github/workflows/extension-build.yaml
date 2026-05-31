@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: Checkout repository
         run: |
-         cd /home/runner/work/
+         cd /home/runner/work/jellyfin-androidx-media/
          git clone https://github.com/EliasTheBigMasterofIssues/jellyfin-androidx-media
       - name: Setup Java
         uses: actions/setup-java@f2beeb24e141e01a676f977032f5a29d81c9e27e # v5.1.0
@@ -35,10 +35,10 @@ jobs:
         run: sudo ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --install "ndk;${NDK_VER}" "cmake;${CMAKE_VER}"
       - name: Build ffmpeg
         run: |
-          cd /home/runner/work/jellyfin-androidx-media/
+          cd /home/runner/work/jellyfin-androidx-media/jellyfin-androidx-media
           git submodule update --init --checkout
           ./build.sh
       - name: Build extension and publish library locally
         run: |
-          cd /home/runner/work/jellyfin-androidx-media/
+          cd /home/runner/work/jellyfin-androidx-media/jellyfin-androidx-media
           ./gradlew :media3-ffmpeg-decoder:publishToMavenLocal
