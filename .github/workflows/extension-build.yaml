@@ -17,8 +17,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-        with:
-          submodules: recursive
       - name: Setup Java
         uses: actions/setup-java@f2beeb24e141e01a676f977032f5a29d81c9e27e # v5.1.0
         with:
@@ -34,6 +32,8 @@ jobs:
       - name: Install correct NDK and CMake
         run: sudo ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --install "ndk;${NDK_VER}" "cmake;${CMAKE_VER}"
       - name: Build ffmpeg
-        run: ./build.sh
+        run:
+          git submodule update --init --checkout
+          ./build.sh
       - name: Build extension and publish library locally
         run: ./gradlew :media3-ffmpeg-decoder:publishToMavenLocal
