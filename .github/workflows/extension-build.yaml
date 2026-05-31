@@ -33,7 +33,10 @@ jobs:
         run: sudo ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --install "ndk;${NDK_VER}" "cmake;${CMAKE_VER}"
       - name: Build ffmpeg
         run:
+          cd /home/runner/work/jellyfin-androidx-media/
           git submodule update --init --checkout
           ./build.sh
       - name: Build extension and publish library locally
-        run: ./gradlew :media3-ffmpeg-decoder:publishToMavenLocal
+        run: 
+          cd /home/runner/work/jellyfin-androidx-media/
+          ./gradlew :media3-ffmpeg-decoder:publishToMavenLocal
