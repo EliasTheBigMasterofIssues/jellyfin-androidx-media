@@ -19,7 +19,7 @@ ln -sf "${FFMPEG_PATH}" "${FFMPEG_MOD_PATH}/jni/ffmpeg"
 cd "${FFMPEG_MOD_PATH}/jni"
 ./build_ffmpeg.sh "${FFMPEG_MOD_PATH}" "${ANDROID_NDK_PATH}" "linux-x86_64" 23 "${ENABLED_DECODERS[@]}"
 
-git clone https://github.com/Fraunhofer-IIS/mpeghdec.git "${MPEGH_MOD_PATH}/jni" --branch r3.0.2 --depth=1 libmpegh
+git clone https://github.com/Fraunhofer-IIS/mpeghdec.git --branch r3.0.2 --depth=1 "${MPEGH_MOD_PATH}/jni/libmpegh"
 cd "${MPEGH_MOD_PATH}/jni"
 cmake -S libmpegh -B . -G Ninja
 cmake --build .
