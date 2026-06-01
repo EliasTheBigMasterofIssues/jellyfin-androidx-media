@@ -16,12 +16,9 @@ export ENABLED_DECODERS=(flac alac pcm_mulaw pcm_alaw mp3 aac ac3 eac3 dca mlp t
 ln -sf "${FFMPEG_PATH}" "${FFMPEG_MOD_PATH}/jni/ffmpeg"
 
 # Start build
-cd "${FFMPEG_MOD_PATH}/jni"
-./build_ffmpeg.sh "${FFMPEG_MOD_PATH}" "${ANDROID_NDK_PATH}" "linux-x86_64" 23 "${ENABLED_DECODERS[@]}"
-
-git clone https://github.com/Fraunhofer-IIS/mpeghdec.git --branch r3.0.2 --depth=1 "${MPEGH_MOD_PATH}/jni/libmpegh" 
-cd "${MPEGH_MOD_PATH}/jni"
-cmake -S "${MPEGH_MOD_PATH}/jni" -B . \
+git clone https://github.com/Fraunhofer-IIS/mpeghdec.git --branch r3.0.2 --depth=1 "${FFMPEG_MOD_PATH}/jni/libmpegh" 
+cd "${MPEGH_MOD_PATH}/jni/"
+cmake -S "${MPEGH_MOD_PATH}/jni/libmpegh" -B . \
   -DCMAKE_TOOLCHAIN_FILE="${ANDROID_NDK_PATH}/build/cmake/android.toolchain.cmake" \
   -DCMAKE_ANDROID_NDK="${ANDROID_NDK_PATH}" \
   -DANDROID_ABI=armeabi-v7a \ 
@@ -29,6 +26,15 @@ cmake -S "${MPEGH_MOD_PATH}/jni" -B . \
   -DCMAKE_ANDROID_ARCH_ABI=armeabi-v7a \
   -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
   -DCMAKE_SYSTEM_NAME=Android \
-  -DCMAKE_SYSTEM_VERSION=23
+  -DCMAKE_SYSTEM_VERSION=23 \
+  -Dmpeghdec_BUILD_DECODE=ON \
+  -Dmpeghdec_BUILD_BINARIES=OFF \
+  -DUSE_PKGCONFIG_DEPS=OFF \
+  -dmpeghdec_BUILD_DOC=OFF \
 
 cmake --build .
+
+# Build ffmpeg
+cd "${FFMPEG_MOD_PATH}/jni"
+./build_ffmpeg.sh "${FFMPEG_MOD_PATH}" "${ANDROID_NDK_PATH}" "linux-x86_64" 23 "${ENABLED_DECODERS[@]}"
+
