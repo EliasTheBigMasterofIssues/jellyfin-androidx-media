@@ -21,5 +21,5 @@ cd "${FFMPEG_MOD_PATH}/jni"
 
 git clone https://github.com/Fraunhofer-IIS/mpeghdec.git --branch r3.0.2 --depth=1 "${MPEGH_MOD_PATH}/jni/libmpegh"
 cd "${MPEGH_MOD_PATH}/jni"
-cmake -S . -B . -G Ninja
+cmake -S "${MPEGH_MOD_PATH}/jni" -B . -G Ninja 
 cmake --build .
