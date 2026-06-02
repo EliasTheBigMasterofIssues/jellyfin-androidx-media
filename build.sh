@@ -18,21 +18,11 @@ ln -sf "${FFMPEG_PATH}" "${FFMPEG_MOD_PATH}/jni/ffmpeg"
 # Start build
 git clone https://github.com/Fraunhofer-IIS/mpeghdec.git --branch r3.0.2 --depth=1 "${FFMPEG_MOD_PATH}/jni/libmpegh" 
 cd "${MPEGH_MOD_PATH}/jni/"
-cmake -S "${MPEGH_MOD_PATH}/jni/libmpegh" -B . \
-  -DCMAKE_TOOLCHAIN_FILE="${ANDROID_NDK_PATH}/build/cmake/android.toolchain.cmake" \
-  -DCMAKE_ANDROID_NDK="${ANDROID_NDK_PATH}" \
-  -DANDROID_ABI=armeabi-v7a \ 
-  -DANDROID_PLATFORM=android-23 \
-  -DCMAKE_ANDROID_ARCH_ABI=armeabi-v7a \
-  -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
-  -DCMAKE_SYSTEM_NAME=Android \
-  -DCMAKE_SYSTEM_VERSION=23 \
-  -Dmpeghdec_BUILD_DECODE=ON \
-  -Dmpeghdec_BUILD_BINARIES=OFF \
-  -DUSE_PKGCONFIG_DEPS=OFF \
-  -dmpeghdec_BUILD_DOC=OFF \
+cmake -S libmpegh -B . -DCMAKE_TOOLCHAIN_FILE="${ANDROID_NDK_PATH}/build/cmake/android.toolchain.cmake" -DCMAKE_ANDROID_NDK="${ANDROID_NDK_PATH}" -DANDROID_ABI=armeabi-v7a -DANDROID_PLATFORM=23 -DCMAKE_ANDROID_ARCH_ABI=armeabi-v7a -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_SYSTEM_NAME=Android  -DCMAKE_SYSTEM_VERSION=23 -Dmpeghdec_BUILD_DECODE=ON -Dmpeghdec_BUILD_BINARIES=OFF -DUSE_PKGCONFIG_DEPS=OFF -Dmpeghdec_BUILD_DOC=OFF -DBUILD_SHARED_LIBS=ON
 
 cmake --build .
+
+cp -a lib/libmpeghdec.so 
 
 # Build ffmpeg
 cd "${FFMPEG_MOD_PATH}/jni"
