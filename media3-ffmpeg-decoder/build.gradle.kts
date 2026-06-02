@@ -9,7 +9,7 @@ plugins {
     signing
 }
 
-val decoderProject = project(":androidx-media-lib-decoder-ffmpeg")
+val decoderProject = project(":androidx-media-lib-decoder-ffmpeg", ":androidx-media-lib-decoder-mpegh")
 val decoderReleaseVersion = checkNotNull(decoderProject.ext["releaseVersion"]?.toString()) {
     "Couldn't read release version from androidx.media3 project"
 }
