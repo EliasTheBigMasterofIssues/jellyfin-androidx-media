@@ -22,13 +22,13 @@ cd "${FFMPEG_MOD_PATH}/jni"
 git clone https://github.com/Fraunhofer-IIS/mpeghdec.git --branch r3.0.2 --depth=1 "${MPEGH_MOD_PATH}/jni/libmpegh" 
 cd "${MPEGH_MOD_PATH}/jni"
 cmake -S "${MPEGH_MOD_PATH}/jni" -B . \
-  -DCMAKE_TOOLCHAIN_FILE="${ANDROID_NDK_PATH}/build/cmake/android.toolchain.cmake" \
-  -DCMAKE_ANDROID_NDK="${ANDROID_NDK_PATH}" \
-  -DANDROID_ABI=armeabi-v7a \ 
-  -DANDROID_PLATFORM=android-23 \
-  -DCMAKE_ANDROID_ARCH_ABI=armeabi-v7a \
-  -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
-  -DCMAKE_SYSTEM_NAME=Android \
-  -DCMAKE_SYSTEM_VERSION=23
+      -DCMAKE_TOOLCHAIN_FILE="${ANDROID_NDK_PATH}/build/cmake/android.toolchain.cmake" \
+      -DCMAKE_ANDROID_NDK="${ANDROID_NDK_PATH}" \
+      -DANDROID_ABI=armeabi-v7a \ 
+      -DANDROID_PLATFORM=23 \
+      -DCMAKE_ANDROID_ARCH_ABI=armeabi-v7a \
+      -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+      -DCMAKE_SYSTEM_NAME=Android \
+      -DCMAKE_SYSTEM_VERSION=23
 
 cmake --build .
